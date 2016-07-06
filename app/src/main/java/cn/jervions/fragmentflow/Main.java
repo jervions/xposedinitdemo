@@ -1,9 +1,12 @@
 package cn.jervions.fragmentflow;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.TextView;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
@@ -15,6 +18,8 @@ import de.robv.android.xposed.XC_MethodHook;
  */
 public class Main implements IXposedHookLoadPackage {
 
+    //SharedPreferences sp =
+
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         if (!lpparam.packageName.equals("com.android.systemui"))
@@ -25,8 +30,22 @@ public class Main implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 TextView tv = (TextView) param.thisObject;
                 String text = tv.getText().toString();
-                tv.setText(text + " :)");
-                tv.setTextColor(Color.RED);
+
+                XSharedPreferences pre = new XSharedPreferences("cn.jervions.fragmentflow", "test");
+                tv.setText(pre.getString("test_blank_space", "  ") + text + pre.getString("test_blank_space_r", "  "));
+
+                if (Integer.parseInt(pre.getString("test_put", "1"))>1) {
+
+                    tv.setTextColor(Color.RED);
+                    XposedBridge.log(pre.getString("test_put", "0"));
+                }
+                else {
+                    tv.setTextColor(Color.YELLOW);
+                    XposedBridge.log(pre.getString("test_put", "0"));
+                }
+
+
+
             }
         });
     }
