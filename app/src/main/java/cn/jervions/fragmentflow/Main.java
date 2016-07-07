@@ -36,7 +36,8 @@ public class Main implements IXposedHookLoadPackage {
 
                 if (Integer.parseInt(pre.getString("test_put", "1"))>1) {
 
-                    tv.setTextColor(Color.RED);
+                    //tv.setTextColor(Color.RED);
+                    tv.setTextColor(Color.WHITE);
                     XposedBridge.log(pre.getString("test_put", "0"));
                 }
                 else {

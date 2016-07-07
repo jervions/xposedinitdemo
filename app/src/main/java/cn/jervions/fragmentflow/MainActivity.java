@@ -9,9 +9,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
-    private ContentFragment mContentFragment;
-    public static String blankspace = "";
-
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private String bs;
@@ -53,7 +50,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         switch (view.getId()){
             case R.id.btnAdd:
-                //blankspace = "       " + blankspace;
                 editor.putString("test_put", "1");
                 bs = sp.getString("test_blank_space"," ");
                 bs = " " + bs;
@@ -71,7 +67,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
 
             case  R.id.btnSub:
-                //blankspace = blankspace.substring(7,blankspace.length());
                 editor.putString("test_put", "2");
                 bs = sp.getString("test_blank_space"," ");
                 if (bs.length()>1){
@@ -83,7 +78,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 //Toast.makeText(this,sp.getString("test_put","0"),Toast.LENGTH_SHORT).show();
                 break;
             case  R.id.btnSubR:
-                //blankspace = blankspace.substring(7,blankspace.length());
                 editor.putString("test_put", "2");
                 bs = sp.getString("test_blank_space_r"," ");
                 if (bs.length()>1){
